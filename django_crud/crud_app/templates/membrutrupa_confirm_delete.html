@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Șterge Asociere - Impresso{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4><i class="fas fa-exclamation-triangle"></i> Confirmare Ștergere Asociere</h4>
+            </div>
+            <div class="card-body">
+                <p>Sigur vrei să ștergi această asociere membru-trupă?</p>
+                
+                <div class="alert alert-light">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-user"></i> Membru:</h6>
+                            <strong>{{ membru_trupa.membru.nume }} {{ membru_trupa.membru.prenume }}</strong>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-guitar"></i> Trupă:</h6>
+                            <strong>{{ membru_trupa.trupa.numetrupa }}</strong>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Rol:</strong> {{ membru_trupa.rol }}
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Data Înscriere:</strong> {{ membru_trupa.datainscriere }}
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Activitate:</strong> {{ membru_trupa.activitate }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Notă:</strong> Această acțiune va șterge doar asocierea dintre membru și trupă. 
+                    Membrul și trupa vor rămâne în sistem.
+                </div>
+                
+                <form method="post" class="text-center">
+                    {% csrf_token %}
+                    <a href="{% url 'membrutrupa_list' %}" class="btn btn-secondary mr-2">
+                        <i class="fas fa-arrow-left"></i> Anulează
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Da, Șterge Asocierea
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

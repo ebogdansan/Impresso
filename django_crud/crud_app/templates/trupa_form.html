@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if trupa %}Editează Trupă{% else %}Adaugă Trupă{% endif %} - Impresso
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    <i class="fas fa-guitar"></i>
+                    {% if trupa %}Editează Trupă{% else %}Adaugă Trupă Nouă{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.numetrupa.id_for_label }}">Nume Trupă *</label>
+                        {{ form.numetrupa }}
+                        {% if form.numetrupa.errors %}
+                            <div class="text-danger">{{ form.numetrupa.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.genmuzical.id_for_label }}">Gen Muzical *</label>
+                                {{ form.genmuzical }}
+                                {% if form.genmuzical.errors %}
+                                    <div class="text-danger">{{ form.genmuzical.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.aninfiintare.id_for_label }}">An Înființare *</label>
+                                {{ form.aninfiintare }}
+                                {% if form.aninfiintare.errors %}
+                                    <div class="text-danger">{{ form.aninfiintare.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.tara.id_for_label }}">Țara *</label>
+                        {{ form.tara }}
+                        {% if form.tara.errors %}
+                            <div class="text-danger">{{ form.tara.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <a href="{% url 'trupa_list' %}" class="btn btn-secondary mr-2">
+                            <i class="fas fa-arrow-left"></i> Înapoi
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            {% if trupa %}Actualizează{% else %}Adaugă{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

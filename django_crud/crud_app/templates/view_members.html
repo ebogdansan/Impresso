@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+
+{% block title %}Afiseaza Membru{% endblock  %}
+
+{% block content %}
+    
+    {% include "forms.html" %}
+    <h3>Afiseaza Membru</h3>
+    <ul>
+        <li> 
+        
+         ID: {{ members.idmembru }}<br>
+         Nume: {{ members.nume }}<br>
+         Prenume: {{ members.prenume }}<br>
+         CNP: {{ members.cnp }}<br>
+         Adresa: {{ members.adresa }}
+        
+         
+        </li>
+        <br>
+         <a href="{% url 'members' %}"> Inapoi la toti membrii</a>
+    </ul>
+
+{% endblock content %}
+
+

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if membru_trupa %}Editează Asociere{% else %}Adaugă Asociere{% endif %} - Impresso
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    <i class="fas fa-link"></i>
+                    {% if membru_trupa %}Editează Asociere Membru-Trupă{% else %}Adaugă Asociere Membru-Trupă{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.membru.id_for_label }}">Membru *</label>
+                                {{ form.membru }}
+                                {% if form.membru.errors %}
+                                    <div class="text-danger">{{ form.membru.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.trupa.id_for_label }}">Trupă *</label>
+                                {{ form.trupa }}
+                                {% if form.trupa.errors %}
+                                    <div class="text-danger">{{ form.trupa.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.rol.id_for_label }}">Rol *</label>
+                                {{ form.rol }}
+                                {% if form.rol.errors %}
+                                    <div class="text-danger">{{ form.rol.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.datainscriere.id_for_label }}">Data Înscriere *</label>
+                                {{ form.datainscriere }}
+                                {% if form.datainscriere.errors %}
+                                    <div class="text-danger">{{ form.datainscriere.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.activitate.id_for_label }}">Activitate *</label>
+                        {{ form.activitate }}
+                        {% if form.activitate.errors %}
+                            <div class="text-danger">{{ form.activitate.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <a href="{% url 'membrutrupa_list' %}" class="btn btn-secondary mr-2">
+                            <i class="fas fa-arrow-left"></i> Înapoi
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            {% if membru_trupa %}Actualizează{% else %}Adaugă{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

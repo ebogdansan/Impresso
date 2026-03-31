@@ -1,0 +1,26 @@
+# Environment
+.env
+
+# Eclipse / PyDev
+.project
+.pydevproject
+.settings/
+.venv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+staticfiles/
+*.log
+
+# Virtual environment
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db

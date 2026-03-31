@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista Trupe - Impresso{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-guitar"></i> Lista Trupe</h2>
+    <a href="{% url 'trupa_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Adaugă Trupă
+    </a>
+</div>
+
+{% if page_obj %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nume Trupă</th>
+                    <th>Gen Muzical</th>
+                    <th>An Înființare</th>
+                    <th>Țara</th>
+                    <th class="text-center">Membri</th>
+                    <th class="text-center">Acțiuni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trupa in page_obj %}
+                <tr>
+                    <td>{{ trupa.pk }}</td>
+                    <td><strong>{{ trupa.numetrupa }}</strong></td>
+                    <td><span class="badge badge-secondary">{{ trupa.genmuzical }}</span></td>
+                    <td>{{ trupa.aninfiintare }}</td>
+                    <td>{{ trupa.tara }}</td>
+                    <td class="text-center">
+                        <span class="badge badge-primary">{{ trupa.membrutrupa_set.count }}</span>
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'trupa_detail' trupa.pk %}" class="btn btn-sm btn-info" title="Vezi detalii">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{% url 'trupa_update' trupa.pk %}" class="btn btn-sm btn-warning ml-1" title="Editează">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'trupa_delete' trupa.pk %}" class="btn btn-sm btn-danger ml-1" title="Șterge">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body text-center">
+            <i class="fas fa-guitar fa-3x text-muted mb-3"></i>
+            <h5>Nu există trupe înregistrate</h5>
+            <p class="text-muted">Adaugă prima trupă pentru a începe.</p>
+            <a href="{% url 'trupa_create' %}" class="btn btn-primary">
+                <i class="fas fa-pluss"></i> Adaugă Prima Trupă
+            </a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

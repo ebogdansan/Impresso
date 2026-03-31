@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ trupa.nume_trupa }} - Impresso{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-guitar"></i> Detalii Trupă</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Nume Trupă:</strong> {{ trupa.numetrupa }}</p>
+                        <p><strong>Gen Muzical:</strong> <span class="badge badge-secondary">{{ trupa.genmuzical }}</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>An Înființare:</strong> {{ trupa.aninfiintare }}</p>
+                        <p><strong>Țara:</strong> {{ trupa.tara }}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <a href="{% url 'trupa_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Înapoi la Listă
+                    </a>
+                    <a href="{% url 'trupa_update' trupa.pk %}" class="btn btn warning ml-2">
+                        <i class="fas fa-edit"></i> Editează
+                    </a>
+                    <a href="{% url 'trupa_delete' trupa.pk %}" class="btn btn-danger ml-2">
+                        <i class="fas fa-trash"></i> Șterge
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %} aici am ramas sa scriu {% endcomment %}
+     <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-users"></i> Membrii Trupei</h5>
+            </div>
+            <div class="card-body">
+                {% if trupa.membrutrupa_set.all %}
+                    {% for mt in trupa.membrutrupa_set.all %}
+                        <div class="border rounded p-2 mb-2">
+                            <strong>
+                                <a href="{% url 'membru_detail' mt.membru.pk %}">
+                                    {{ mt.membru.nume }} {{ mt.membru.prenume }}
+                                </a>
+                            </strong><br>
+                            <small class="text-muted">Rol: {{ mt.rol }}</small><br>
+                            <small class="text-muted">Status: 
+                                <span class="badge badge-{% if mt.activitate == 'Activ' %}success{% else %}secondary{% endif %}">
+                                    {{ mt.activitate }}
+                                </span>
+                            </small>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Trupa nu are încă membri asociați.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

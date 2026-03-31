@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Asociere {{ membru_trupa.membru.nume }} - {{ membru_trupa.trupa.nume_trupa }} - Impresso{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-link"></i> Detalii Asociere Membru-Trupă</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-user"></i> Informații Membru</h5>
+                        <div class="border rounded p-3 mb-3">
+                            <p><strong>Nume:</strong> {{ membru_trupa.membru.nume }} {{ membru_trupa.membru.prenume }}</p>
+                            <p><strong>CNP:</strong> {{ membru_trupa.membru.cnp }}</p>
+                            <p><strong>Adresa:</strong> {{ membru_trupa.membru.adresa }}</p>
+                            <a href="{% url 'membru_detail' membru_trupa.membru.pk %}" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i> Vezi Profil Complet
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-guitar"></i> Informații Trupă</h5>
+                        <div class="border rounded p-3 mb-3">
+                            <p><strong>Nume Trupă:</strong> {{ membru_trupa.trupa.numetrupa }}</p>
+                            <p><strong>Gen Muzical:</strong> <span class="badge badge-secondary">{{ membru_trupa.trupa.genmuzical }}</span></p>
+                            <p><strong>An Înființare:</strong> {{ membru_trupa.trupa.aninfiintare }}</p>
+                            <p><strong>Țara:</strong> {{ membru_trupa.trupa.tara }}</p>
+                            <a href="{% url 'trupa_detail' membru_trupa.trupa.pk %}" class="btn btn-sm btn-outline-success">
+                                <i class="fas fa-eye"></i> Vezi Profil Trupă
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><i class="fas fa-info-circle"></i> Detalii Asociere</h5>
+                        <div class="border rounded p-3">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p><strong>Rol:</strong><br><span class="badge badge-info">{{ membru_trupa.rol }}</span></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><strong>Data Înscriere:</strong><br>{{ membru_trupa.datainscriere }}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><strong>Activitate:</strong><br>
+                                        <span class="badge badge-{% if membru_trupa.activitate == 'Activ' %}success{% elif membru_trupa.activitate == 'Inactiv' %}secondary{% else %}warning{% endif %}">
+                                            {{ membru_trupa.activitate }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{% url 'membrutrupa_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Înapoi la Listă
+                    </a>
+                    <a href="{% url 'membrutrupa_update' membru_trupa.pk %}" class="btn btn-warning ml-2">
+                        <i class="fas fa-edit"></i> Editează
+                    </a>
+                    <a href="{% url 'membrutrupa_delete' membru_trupa.pk %}" class="btn btn-danger ml-2">
+                        <i class="fas fa-trash"></i> Șterge
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

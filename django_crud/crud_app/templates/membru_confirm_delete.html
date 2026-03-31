@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Șterge Membru - Impresso{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4><i class="fas fa-exclamation-triangle"></i> Confirmare Ștergere</h4>
+            </div>
+            <div class="card-body">
+                <p>Sigur vrei să ștergi membrul:</p>
+                <div class="alert alert-light">
+                    <strong>{{ membru.nume }} {{ membru.prenume }}</strong><br>
+                    CNP: {{ membru.cnp }}<br>
+                    Adresa: {{ membru.adresa }}
+                </div>
+                
+                {% if membru.membrutrupa_set.all %}
+                    <div class="alert alert-warning">
+                        <strong>Atenție!</strong> Acest membru activează în următoarele trupe:
+                        <ul class="mt-2 mb-0">
+                            {% for mt in membru.membrutrupa_set.all %}
+                                <li>{{ mt.trupa.numetrupa }} ({{ mt.rol }})</li>
+                            {% endfor %}
+                        </ul>
+                        Aceste asocieri vor fi șterse de asemenea.
+                    </div>
+                {% endif %}
+                
+                <form method="post" class="text-center">
+                    {% csrf_token %}
+                    <a href="{% url 'membru_list' %}" class="btn btn-secondary mr-2">
+                        <i class="fas fa-arrow-left"></i> Anulează
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Da, Șterge
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

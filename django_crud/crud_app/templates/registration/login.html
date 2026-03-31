@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Impresso</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            background: linear-gradient(135deg, #151517ff 0%, #764ba2 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .login-card { 
+            background: rgba(255,255,255,0.95); 
+            backdrop-filter: blur(10px); 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            border: none;
+        }
+        .login-header {
+            background: linear-gradient(45deg, #151517ff, #764ba2);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        .form-control { 
+            border-radius: 10px; 
+            border: 2px solid #e9ecef; 
+            transition: all 0.3s; 
+        }
+        .form-control:focus { 
+            border-color: #151517ff; 
+            box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.25); 
+        }
+        .btn-primary { 
+            background: linear-gradient(45deg, #151517ff, #4582f4ff); 
+            border: none; 
+            border-radius: 25px; 
+            padding: 10px 25px; 
+            width: 100%;
+        }
+        .alert { 
+            border-radius: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card login-card">
+                    <div class="card-header login-header text-center">
+                        <h4><i class="fas fa-music"></i> Impresso</h4>
+                        <p class="mb-0">Autentificare</p>
+                    </div>
+                    <div class="card-body p-4">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                <label for="{{ form.username.id_for_label }}">
+                                    <i class="fas fa-user"></i> Username
+                                </label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       name="username" 
+                                       id="{{ form.username.id_for_label }}"
+                                       placeholder="Introduceți username-ul"
+                                       required>
+                                {% if form.username.errors %}
+                                    <div class="text-danger">{{ form.username.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}">
+                                    <i class="fas fa-lock"></i> Parolă
+                                </label>
+                                <input type="password" 
+                                       class="form-control" 
+                                       name="password" 
+                                       id="{{ form.password.id_for_label }}"
+                                       placeholder="Introduceți parola"
+                                       required>
+                                {% if form.password.errors %}
+                                    <div class="text-danger">{{ form.password.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-sign-in-alt"></i> Conectează-te
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i>
+                                Contactează administratorul pentru un cont nou.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
